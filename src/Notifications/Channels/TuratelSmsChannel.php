@@ -46,12 +46,7 @@ class TuratelSmsChannel
 
         /** @var TuratelSmsMessage $message */
         $message = $notification->toTuratelSms($notifiable);
-
-        $numbers = array_filter(array_unique(array_merge(
-            Arr::wrap($notifiable->routeNotificationFor('sms')),
-            Arr::wrap($notifiable->routeNotificationFor('turatel_sms'))
-        )));
-        $message->setNumbers($numbers);
+        $message->setNumbers(Arr::wrap($notifiable->routeNotificationFor('sms')));
 
         $client = $this->getClient();
 
